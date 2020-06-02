@@ -3,7 +3,7 @@
 
 ### How to compile?
 `
-nasm -f elf64 file.s
+nasm -f elf64 file.s   
 ld -s -o file file.o
 `
 
