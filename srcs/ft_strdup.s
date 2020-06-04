@@ -24,12 +24,12 @@
 ;}
 
 section .text
-extern malloc
-extern ft_strlen
-extern ft_strcpy
-global ft_strdup
+extern _malloc
+extern _ft_strlen
+extern _ft_strcpy
+global _ft_strdup
 
-ft_strdup:
+_ft_strdup:
 	call ft_strlen
 	inc rax
 	push rdi

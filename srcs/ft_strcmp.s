@@ -21,9 +21,9 @@
 ;}
 
 section .text
-global ft_strcmp
+global _ft_strcmp
 
-ft_strcmp:
+_ft_strcmp:
 	mov rcx, 0
 
 strcmp_loop:

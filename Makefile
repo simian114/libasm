@@ -6,14 +6,14 @@
 #    By: sanam <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/02 00:52:00 by sanam             #+#    #+#              #
-#    Updated: 2020/06/04 01:26:51 by sanam            ###   ########.fr        #
+#    Updated: 2020/06/04 18:06:19 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		=	gcc
 NAME	=	libasm.a
 NASM	=	nasm
-FLAGS	=	-f elf64
+FLAGS	=	-f macho64
 INC		=	includes/libasm.h
 SRC		=	srcs/ft_write.s \
 			srcs/ft_strlen.s	\
