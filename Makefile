@@ -6,10 +6,11 @@
 #    By: sanam <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/02 00:52:00 by sanam             #+#    #+#              #
-#    Updated: 2020/06/02 17:27:23 by sanam            ###   ########.fr        #
+#    Updated: 2020/06/04 01:26:51 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+CC		=	gcc
 NAME	=	libasm.a
 NASM	=	nasm
 FLAGS	=	-f elf64
@@ -17,7 +18,9 @@ INC		=	includes/libasm.h
 SRC		=	srcs/ft_write.s \
 			srcs/ft_strlen.s	\
 			srcs/ft_read.s		\
-			srcs/ft_strcmp.s
+			srcs/ft_strcmp.s	\
+			srcs/ft_strcpy.s	\
+			srcs/ft_strdup.s
 OBJ		=	$(SRC:.s=.o)
 
 all		:	$(NAME)
@@ -36,5 +39,9 @@ fclean	:	clean
 			rm -rf $(NAME)
 
 re		:	fclean all
+
+test	:	re
+			$(CC) -o test test.c -L. -lasm -no-pie
+			./test
 
 .PHONY: all, clean, fclean, re, bonus
