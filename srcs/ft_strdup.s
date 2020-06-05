@@ -27,20 +27,19 @@ section .text
 extern _malloc
 extern _ft_strlen
 extern _ft_strcpy
-global _ft_strdup
+	global _ft_strdup
 
 _ft_strdup:
-	call ft_strlen
+	call _ft_strlen
 	inc rax
 	push rdi
 	mov rdi, rax
-	call malloc
+	call _malloc
 	cmp rax, 0
 	je failed
 	pop rsi
 	mov rdi, rax
-	call ft_strcpy
-	mov rax, rdi
+	call _ft_strcpy
 	ret
 
 failed:

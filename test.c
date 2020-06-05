@@ -6,10 +6,10 @@
 
 int main()
 {
-	char test[100];
-	memset(test, 0, 100);
-	printf("=========== ft_read ================\n");
-	ft_read(3, test, 100);
+//	char test[100];
+//	memset(test, 0, 100);
+//	printf("=========== ft_read ================\n");
+//	ft_read(3, test, 100);
 //	printf("=========== ft_write ================\n");
 //	int ret = ft_write(1, test, ft_strlen(test));
 //	printf("=========== ft_strlen ================\n");
@@ -24,7 +24,7 @@ int main()
 //	char dest[100];
 //	ft_strcpy(dest, s);
 //	printf("dest : %s\n", dest);
-//	printf("=========== ft_strdup ================\n");
-//	char *dup = ft_strdup("asdfasdfasfsadfsdaf");
-//	printf("dup : %s\n", dup);
+	printf("=========== ft_strdup ================\n");
+	char *dup = ft_strdup("asdfasdfasfsadfsdaf");
+	printf("dup : %s\n", dup);
 }
