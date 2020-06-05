@@ -89,4 +89,89 @@ char \*s 가 가리키는 문자열에서 하나의 문자들은 char 형이고 
 그리고 값이 널이라면 반복을 끝내고 함수를 종료한다. 아니라면 인덱스 값을 증가시키고 다시 반복한다.  
 
 -----
+### 4. ft_strcmp
+```
+  int            ft_strcmp(char *s1, char *s2)
+  {
+         int i;
+  
+         i = 0;
+         while (s1[i] && s1[i] == s2[i])
+                 i++;
+         return (s1[i] - s2[i]);
+  }
+```
+ft_strlen와 비슷하게 값들을 레지스터로 1바이트 형식으로 넣고 비교하면 된다. 여기서 dl과 dh를 이해해야하는데  
+rcx = 64bit --> ecx = 32bit --> cx = 16bit --> ch = cl == 8bit 이렇게 된다.  
+strcmp는 한 바이트 씩을 비교하는거니깐 바이트 하나씩을 따와서 이렇게 비교해준다.  
+내가 해결하지 못한거는 이 dl과 dh의 뺸 결과과 rax에 담겨야 하는데 옮기지를 못하겠다.. 그래서 그냥 -1, 0, 1로 만들었다.
 
+-----
+### 5. ft_strcpy
+이 함수는 매우 간단하다. 그냥 rsi를 1바이트씩 NULL과 비교한다. 만약 널이 아니라면 rdi에 대입하고 인덱스를 증가시킨다.  
+만약 rsi가 NULL이라면 rdi에 NULL넣고 ret한다.
+
+-----
+### 6. ft_strdup
+이 함수를 어셈블리 만으로 구현하기는 너무 복잡하고 길어진다. 따라서 앞에서 구현한 함수들을 이용해서 구현하자.  
+```
+  char   *ft_strdup(char *s)
+  {
+         int             len;
+         char    *ret;
+  
+         len = (int)ft_strlen(s);
+         ret = malloc(sizeof(char) * (len + 1));
+         if (ret == 0)
+                 return (0);
+         ft_strlcpy(ret, s, len + 1);
+         return (ret);
+  }
+```
+위의 코드는 c언어로 구현한 ft_strdup다. 이걸보면 어떻게 어셈블리로 구현할지 딱 감이 온다.  
+1. src의 길이(len)을 구한다.
+2. len + 1 만큼의 공간을 할당 받는다.
+3. 만약 malloc 의 return 값이 NULL 이라면 0을 return한다.
+4. 마지막으로 src의 데이터를 dest에 복사한다.  
+먼저 이 함수는 외부 함수를 사용하므로 외부 함수를 어떻게 사용하는지 먼저 알아야한다.  
+외부 함수를 사용하기 위해서는 간단히 extern funcname 이렇게 하면 된다.  
+libasm.h 헤더에 이미 원형을 정의해 놓았기 때문에 컴파일 단계에서 알아서 링크가 된다.  
+이후에는 각 함수를 사용하기에 앞서 각 레지스터들의 값을 잘 초기화하고 순서대로 함수 호출하면 끝이다.
+
+-----
+## Error handling
+pdf에 각 에러에 따른 errno를 설정하라고 한다. 그리고 \_\_\_error 함수를 이용하라고 해서 사용해보았다.  
+하지만 언더바를 세개쓴 error은 컴파일 자체가 안된다. 언더바를 두 개 쓰니깐 라이브러리는 만들어 졌다.  
+만들어진 라이브러리로 실행파일을 만들면 이상하게 오류가 뜬다. 그래서 gdb 디버거를 돌려보니깐  
+error 함수를 호출할 때 마다 \_\_errno\_location 함수가 호출이 되었다. 이 함수에 대해서 알아보니  
+```
+  int *__errno_location(void)
+```
+이런 원형을 갖고 있었다. 뭔가 저 error_location 함수가 가리키고 있는 int 가 errno거라는 느낌이 딱 와와서  
+pdf에서 사용하라고 한 \_\_\_error 함수 말고 \_\_error\_location을 사용하기로 했다.  
+하지만 이 함수를 사용해도 errno가 적절하게 세팅이 되지 않았다.  
+아래와 같이 첫 번째 ft_read는 옳지 않은 fd를 넣어봤고 두 번째에는 옳지 않은 buf를 넣어줬다.  
+이렇게 했을 때 a, b는 -1로 세팅이 되어야하고 errno는 각각이 9, 14로 세팅이 되어야 한다.  
+(errno 번호 보려면 sudo apt-get install error하고 errno -l 입력하면 쫘르륵 뜬다.)
+```
+  1 ____ int a = ft_read(fault, buf, 10);
+  2 ____ int b = ft_read(0, fault, 10);
+```
+이 결과는 a = -9, b = -14 였다. 그리고 errno는 0으로 값이 변경되지 않았다.  
+어쨋든 ft_read의 return 값 자체. 즉 sys_read는 함수 호출을 실패하면 errno * -1 값을 return 한다는 것을 알았다.  
+그리고 디버거를 계속 돌려본 결과
+```
+  call __errno_location
+```
+을 호출하면 rax 값에 errno의 포인터가 저장이 된다는 것을 알았다.  
+<\br>
+
+지금까지의 내용을 정리해보면
+> sys_read가 실패하면 ***rax*** 에는 ***errno * -1*** 값이 담긴다.  
+> 따라서 syscall 이후 ***cmp rax, 0***으로 만약 rax 값이 0 보다 작다면 err 처리로 jump  
+> 이제 음수인 rax의 값을 양수로 바꿔주기 위해 ***neg rax***  
+> call \_\_errno\_location 호출 전에 rax 값을 스택에 저장. ***push rax***  
+> ***call __errno_location***으로 ***rax에 errno pointer*** 저장  
+> 아까 스택에 저장해 놓은 값을 ***rax 가 가리키고 있는 errno pointer 에 저장 pop qword [rax]***
+>> 여기서 중요한 것은 ***rax***는 ***int형 pointer*** 따라서 ***8바이트***의 값. 사이즈를 맞춰주기 위해 ***qword***를 써준다.  
+> 그리고 ft_read가 실패하면 ret 값은 -1 이므로 ***mov rax, -1***
