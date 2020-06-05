@@ -26,9 +26,9 @@ sys_read의 인자로 rdi, rsi, rdx로 들어가는 걸 확인할 수 있다.
     syscall  
     ret  
 ```  
- 고작 이 세줄이 끝인데? 대체 어디서 인자를 정해준거지?
- 하나 또 생각해 볼게 나는 이 ft_read를 하나의 함수로 만들어서 c로 만들어진 main 문에서 사용한다는거다.
- 즉, 아래와 같이 사용하는거다.
+ 고작 이 세줄이 끝인데? 대체 이 코드 어디에서 sys_read의 인자로 들어가는 rdi, rsi, rdx를 지정해준거지?  
+ 이에 대한 해답에 앞서서 우선 우리는 c로 만들어진 main문에서 ft_read를 함수로써 사용한다는 것을 인지해야한다.  
+ 즉, 아래와 같다.
 ``` 
   int main()  
   {  
@@ -37,10 +37,9 @@ sys_read의 인자로 rdi, rsi, rdx로 들어가는 걸 확인할 수 있다.
       ft_read(0, buf, 10);  
   }  
 ```
-여기서 calling convention 이라는 것을 확인해야하는데, calling convention에 따르면 함수의 인자로 들어온 값들은
-순서대로 rdi, rsi, rdx, r10, r8, r9 레지스터에 담기게 된다.
-따라서 ft_read(0, buf, 10)을 호출하면 내가 구현한
-  
+위의 코드를 보면 우리는 ft_read의 인자로 3개의 값을 전달해 준다. 이 인자들은 차례대로 rdi, rsi, rdx의 레지스터로 전달된다.  
+이 내용은 calling convention을 확인하면 된다. convention에 따르면 함수로 들어간 인자는 차례대로 rdi,rsi, rdx, r10, r8, r9  
+레지스터로 전달된다.
   mov rax, 0
   syscall
   ret
