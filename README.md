@@ -21,22 +21,22 @@ ft_read를 구현하기 위해서 위해서는 시스템콜을 직접 호출해�
 sys_read의 인자로 rdi, rsi, rdx로 들어가는 걸 확인할 수 있다.
 즉, syscall 을 호출하기 전에 먼저 rdi, rsi, rdx에 fd, buf, count를 지정해야한다.
 하지만 내 코드를 보면
-
+```
     mov rax, 0  
     syscall  
     ret  
-  
+```  
  고작 이 세줄이 끝인데? 대체 어디서 인자를 정해준거지?
  하나 또 생각해 볼게 나는 이 ft_read를 하나의 함수로 만들어서 c로 만들어진 main 문에서 사용한다는거다.
  즉, 아래와 같이 사용하는거다.
- 
+``` 
   int main()  
   {  
       
       char buf[10];  
       ft_read(0, buf, 10);  
   }  
-
+```
 여기서 calling convention 이라는 것을 확인해야하는데, calling convention에 따르면 함수의 인자로 들어온 값들은
 순서대로 rdi, rsi, rdx, r10, r8, r9 레지스터에 담기게 된다.
 따라서 ft_read(0, buf, 10)을 호출하면 내가 구현한
