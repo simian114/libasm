@@ -45,6 +45,7 @@ sys_read의 인자로 rdi, rsi, rdx로 들어가는 걸 확인할 수 있다.
   sys_read(0, buf, 10)
 ```
 에러처리는 마지막에 서술.
+
 -----
 ### 2. ft_write
 write는 read와 완전 동일하다.
