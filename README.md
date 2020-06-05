@@ -37,9 +37,11 @@ sys_read의 인자로 rdi, rsi, rdx로 들어가는 걸 확인할 수 있다.
       ft_read(0, buf, 10);  
   }  
 ```
-위의 코드를 보면 우리는 ft_read의 인자로 3개의 값을 전달해 준다. 이 인자들은 차례대로 rdi, rsi, rdx의 레지스터로 전달된다.  
+위의 코드를 보면 ft_read의 인자로 3개의 값을 전달해 준다. 이 인자들은 차례대로 rdi, rsi, rdx의 레지스터로 전달된다.  
 이 내용은 calling convention을 확인하면 된다. convention에 따르면 함수로 들어간 인자는 차례대로 rdi,rsi, rdx, r10, r8, r9  
-레지스터로 전달된다.
-  mov rax, 0
-  syscall
-  ret
+레지스터로 전달된다고 한다. 결과적으로 우리가 구현한 ft_read는 아래처럼 작동한다.
+```
+  rdi = 0, rsi = buf, rdx = 10
+  sys_read(0, buf, 10)
+```
+
