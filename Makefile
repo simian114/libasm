@@ -6,7 +6,7 @@
 #    By: sanam <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/02 00:52:00 by sanam             #+#    #+#              #
-#    Updated: 2020/06/04 18:06:19 by sanam            ###   ########.fr        #
+#    Updated: 2020/06/05 12:20:18 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ fclean	:	clean
 re		:	fclean all
 
 test	:	re
-			$(CC) -o test test.c -L. -lasm -no-pie
+			$(CC) -o test test.c -L. -lasm
 			./test
 
 .PHONY: all, clean, fclean, re, bonus
