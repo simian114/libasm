@@ -3,8 +3,8 @@
 
 ### 1. How to compile?
 ```
-- linux
+Linux
   - nasm -f elf64 file.s -o file.o
-- Mac
+Mac
   - nasm -f macho64 file.s -o file.o
 ```
