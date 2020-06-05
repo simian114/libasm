@@ -6,14 +6,14 @@
 
 int main()
 {
-	char *z;
-	char test[100];
-	memset(test, 0, 100);
-	printf("=========== ft_read ================\n");
-	int a = ft_read(0, z, 100);
-	printf("a : %d\n", a);
-	//printf("[%s]\n", strerror(errno));
-	printf("[%s]\n", strerror(errno));
+//	char *z;
+//	char test[100];
+//	memset(test, 0, 100);
+//	printf("=========== ft_read ================\n");
+//	int a = ft_read(0, z, 100);
+//	printf("a : %d\n", a);
+//	//printf("[%s]\n", strerror(errno));
+//	printf("[%s]\n", strerror(errno));
 //	printf("=========== ft_write ================\n");
 //	int ret = ft_write(1, test, ft_strlen(test));
 //	printf("=========== ft_strlen ================\n");
@@ -28,7 +28,7 @@ int main()
 //	char dest[100];
 //	ft_strcpy(dest, s);
 //	printf("dest : %s\n", dest);
-//	printf("=========== ft_strdup ================\n");
-//	char *dup = ft_strdup("asdfasdfasfsadfsdaf");
-//	printf("dup : %s\n", dup);
+	printf("=========== ft_strdup ================\n");
+	char *dup = ft_strdup("1234");
+	printf("dup : %s\n", dup);
 }
