@@ -1,11 +1,10 @@
 # LIBASM
 -----
 
-### How to compile?
-`
-nasm -f elf64 file.s   
-ld -s -o file file.o
-`
-
------
-### ***2020. 06. 01 Start***
+### 1. How to compile?
+```
+- linux
+  - nasm -f elf64 file.s -o file.o
+- Mac
+  - nasm -f macho64 file.s -o file.o
+```
