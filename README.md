@@ -139,7 +139,7 @@ libasm.h 헤더에 이미 원형을 정의해 놓았기 때문에 컴파일 단�
 이후에는 각 함수를 사용하기에 앞서 각 레지스터들의 값을 잘 초기화하고 순서대로 함수 호출하면 끝이다.
 
 -----
-### ft_list_push_front  
+### Bonus 1.ft_list_push_front  
 우선 이 함수는 피신을 기준으로 만들어야 하기 때문에 c언어 코드를 먼저 작성해보겠다.
 ```
   void   ft_list_push_front(t_list **list, void *data)
@@ -185,6 +185,35 @@ malloc을 하기 위해서는 리스트 구조체의 사이즈를 알아야한�
 > 7. mov [rdi], rax ; \*list = node == head = node  
 
 디버거로 rax의 값을 계속 추적하면 알게되는게 참 많은거 같다. 디버거 활용을 잘하자!  
+
+-----
+### Bonus 2.ft_list_size
+
+우서 C코드.
+```
+  int ft_list_size(t_list *begin_list)
+  {
+         int             ret;
+  
+         ret = 0;
+         while (begin_list)
+         {
+                 ret++;
+                 begin_list = begin_list->next;
+         }
+         return (ret);
+  }
+```  
+C코드가 간단한 만큼 어셈블리로도 간단하다. 너무 간단해서 별로 할 말은 없지만...  
+주의해야할건
+```
+  node = node->next
+```  
+이 부분일듯.  
+```
+  mov rsi, [rsi + 8]
+```
+이런식으로 현재 노드를 가리키고 있는 레지스터에 next가 위치한 곳의 값을 넣어주면 된다.  
 
 -----
 ## Errno(Linux)
