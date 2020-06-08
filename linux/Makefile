@@ -6,7 +6,7 @@
 #    By: sanam <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/02 00:52:00 by sanam             #+#    #+#              #
-#    Updated: 2020/06/04 19:58:40 by sanam            ###   ########.fr        #
+#    Updated: 2020/06/08 11:25:32 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ SRC		=	srcs/ft_write.s \
 			srcs/ft_read.s		\
 			srcs/ft_strcmp.s	\
 			srcs/ft_strcpy.s	\
-			srcs/ft_strdup.s
+			srcs/ft_strdup.s	\
+			srcs/ft_list_push_front.s	\
+			srcs/ft_list_size.s
 OBJ		=	$(SRC:.s=.o)
 
 all		:	$(NAME)

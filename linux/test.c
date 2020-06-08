@@ -28,7 +28,20 @@ int main()
 //	char dest[100];
 //	ft_strcpy(dest, s);
 //	printf("dest : %s\n", dest);
-	printf("=========== ft_strdup ================\n");
-	char *dup = ft_strdup("1234");
-	printf("dup : %s\n", dup);
+//	printf("=========== ft_strdup ================\n");
+//	char *dup = ft_strdup("1234");
+//	printf("dup : %s\n", dup);
+	t_list		*head;
+	head = 0;
+	ft_list_push_front(&head, "1");
+	ft_list_push_front(&head, "2");
+	ft_list_push_front(&head, "3");
+	ft_list_push_front(&head, "4");
+//	t_list *temp = head;
+//	while (temp)
+//	{
+//		printf("[%s]\n", (char *)temp->content);
+//		temp = temp->next;
+//	}
+	printf("size : [%d]\n", ft_list_size(head));
 }
