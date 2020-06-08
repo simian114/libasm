@@ -139,6 +139,54 @@ libasm.h 헤더에 이미 원형을 정의해 놓았기 때문에 컴파일 단�
 이후에는 각 함수를 사용하기에 앞서 각 레지스터들의 값을 잘 초기화하고 순서대로 함수 호출하면 끝이다.
 
 -----
+### ft_list_push_front  
+우선 이 함수는 피신을 기준으로 만들어야 하기 때문에 c언어 코드를 먼저 작성해보겠다.
+```
+  void   ft_list_push_front(t_list **list, void *data)
+  {
+        t_list *new; 
+
+        new= malloc(sizeof(t_list));
+        if (new == 0)
+                return ;
+        new->content = data;
+        new->next = *list;
+        *list = node;
+  }
+  
+  int main(void)
+  {
+        t_list *head;
+        t_list *temp;
+        
+        head = 0;
+        ft_list_push_front(&head, "123");
+        ft_list_push_front(&head, "456");
+        ft_list_push_front(&head, "789");
+        temp = head;
+        while (temp)
+        {
+              printf("[%s]", (char *)temp->content);
+              if (temp->next)
+                    printf(" -> ");
+        }
+  }
+```
+***이 함수는 void 형태이므로 return value가 없다. 처음에 인자로 들어왔던 rdi의 주소 공간을 계속 갖고 있어야 한다.***  
+함수를 시작하면 바로 malloc을 사용해야 하므로 인자로 들어온 rdi(t_list \*\*list), rsi(void \*data)를 저장하자.
+malloc을 하기 위해서는 리스트 구조체의 사이즈를 알아야한다. 간단하게 main에서 sizeof(t_list)을 하면 된다.
+결과 16이 나왔으므로 malloc(16)을 하자. 그리고 malloc fail을 체크하자. 아래가 이제부터 중요.  
+> 1. rax 에는 새로 할당받은 16의 공간이 있다.  
+> 2. rax[0] ~ rax[7] 까지는 data를 위한 공간, rax[8] ~ rax[15] 까지는 next 포인터를 위한 공간이다.  
+> 3. push 해 놓은 rdi와, rsi을 pop하자. (push, pop하면 push 했던 상태 그대로 pop 된다.)  
+> 4. mov [rax], rsi ; node->content = data(rsi)  
+> 5. mov rcx, [rdi] ; t_list \*temp = 0;  
+> 6. mov [rax + 8], rcx ; node->next = 0;  
+> 7. mov [rdi], rax ; \*list = node == head = node  
+
+디버거로 rax의 값을 계속 추적하면 알게되는게 참 많은거 같다. 디버거 활용을 잘하자!  
+
+-----
 ## Errno(Linux)
 pdf에 각 에러에 따른 errno를 설정하라고 한다. \_\_\_error 함수를 사용하면 된다고 한다.  
 하지만 언더바를 세개쓴 error은 컴파일 자체가 안된다. 언더바를 두 개 쓰니깐 라이브러리는 만들어 졌다.  
