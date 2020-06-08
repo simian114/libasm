@@ -6,7 +6,7 @@
 #    By: sanam <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/02 00:52:00 by sanam             #+#    #+#              #
-#    Updated: 2020/06/05 16:13:15 by sanam            ###   ########.fr        #
+#    Updated: 2020/06/08 15:12:58 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,20 @@ SRC		=	srcs/ft_write.s \
 			srcs/ft_strcmp.s	\
 			srcs/ft_strcpy.s	\
 			srcs/ft_strdup.s
+BONUS	=	srcs/ft_list_push_front.s	\
+			srcs/ft_list_size.s
+
 OBJ		=	$(SRC:.s=.o)
+OBJ_BONUS	=	$(BONUS:.s=.o)
 
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJ)
 			ar rc $(NAME) $(OBJ)
+			ranlib $(NAME)
+
+bonus	:	$(NAME) $(OBJ_BONUS)
+			ar -rcs $(NAME) $^
 			ranlib $(NAME)
 
 %.o		:	%.s
