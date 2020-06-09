@@ -13,20 +13,14 @@ int main()
 {
 	t_list		*head;
 	head = 0;
-	//ft_list_push_front(&head, ft_strdup("1"));
-	ft_list_push_front(&head, ft_strdup("3"));
-	ft_list_push_front(&head, ft_strdup("3"));
-	ft_list_push_front(&head, ft_strdup("2"));
-	ft_list_push_front(&head, ft_strdup("3"));
-	ft_list_push_front(&head, ft_strdup("3"));
-	ft_list_push_front(&head, ft_strdup("3"));
-	ft_list_push_front(&head, ft_strdup("2"));
-	ft_list_push_front(&head, ft_strdup("3"));
 	ft_list_push_front(&head, ft_strdup("3"));
 	ft_list_push_front(&head, ft_strdup("3"));
 	ft_list_push_front(&head, ft_strdup("2"));
 	ft_list_push_front(&head, ft_strdup("2"));
-	ft_list_remove_if(&head, "3", ft_strcmp, free_z);
+	ft_list_push_front(&head, ft_strdup("3"));
+	ft_list_push_front(&head, ft_strdup("2"));
+	ft_list_push_front(&head, ft_strdup("2"));
+	ft_list_remove_if(&head, "2", ft_strcmp, free_z);
 	t_list *temp = head;
 	while (temp)
 	{

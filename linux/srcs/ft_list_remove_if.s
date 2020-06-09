@@ -71,6 +71,9 @@ ft_list_remove_if:
 		pop r11
 		mov rdi, r9
 		call free
+		mov rcx, [r11]
+		mov rcx, [rcx + 8]
+		mov [r11], rcx
 		jmp check_first
 
 	remove_loop_1:
