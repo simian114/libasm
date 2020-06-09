@@ -6,7 +6,7 @@
 #    By: sanam <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/02 00:52:00 by sanam             #+#    #+#              #
-#    Updated: 2020/06/08 15:12:58 by sanam            ###   ########.fr        #
+#    Updated: 2020/06/09 16:30:50 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ SRC		=	srcs/ft_write.s \
 			srcs/ft_strdup.s
 BONUS	=	srcs/ft_list_push_front.s	\
 			srcs/ft_list_size.s
-
 OBJ		=	$(SRC:.s=.o)
 OBJ_BONUS	=	$(BONUS:.s=.o)
 
@@ -41,7 +40,7 @@ bonus	:	$(NAME) $(OBJ_BONUS)
 			$(NASM) -I$(INC) $(FLAGS) $< -o $@
 
 clean	:
-			rm -rf $(OBJ) $(OBJ_b)
+			rm -rf $(OBJ) $(OBJ_BONUS)
 
 fclean	:	clean
 			rm -rf $(NAME)
@@ -49,7 +48,11 @@ fclean	:	clean
 re		:	fclean all
 
 test	:	re
-			$(CC) -o test tester.c -L. -lasm -no-pie
+			$(CC) -o test tester.c -L. -lasm
 			./test
+
+bt		:	bonus
+			$(CC) -o bonus bonus.c -L. -lasm
+			./bonus
 
 .PHONY: all, clean, fclean, re, bonus

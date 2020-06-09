@@ -26,6 +26,8 @@ extern _malloc
 	global _ft_list_push_front
 
 _ft_list_push_front:
+		push rbp
+		mov rbp, rsp
 		push rdi
 		push rsi
 		mov rdi, 16
@@ -38,6 +40,8 @@ _ft_list_push_front:
 		mov rcx, [rdi]
 		mov [rax + 8], rcx
 		mov [rdi], rax
+		pop rbp
+		ret
 
 error:
 		ret
