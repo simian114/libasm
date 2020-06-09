@@ -6,7 +6,7 @@
 #    By: sanam <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/02 00:52:00 by sanam             #+#    #+#              #
-#    Updated: 2020/06/09 16:30:50 by sanam            ###   ########.fr        #
+#    Updated: 2020/06/10 02:17:22 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC		=	srcs/ft_write.s \
 			srcs/ft_strcpy.s	\
 			srcs/ft_strdup.s
 BONUS	=	srcs/ft_list_push_front.s	\
-			srcs/ft_list_size.s
+			srcs/ft_list_size.s	\
+			srcs/ft_list_remove_if.s
 OBJ		=	$(SRC:.s=.o)
 OBJ_BONUS	=	$(BONUS:.s=.o)
 
