@@ -110,12 +110,12 @@ int     test_read(void)
     char ft_buffer[bufferlen + 1];
     buffer[bufferlen] = '\0';
     ft_buffer[bufferlen] = '\0';
-    printf("read - %zd:         %s\n", read(fd_1, buffer, -5), buffer);
+    printf("read - %zd\n", read(fd_1, buffer, -5));
     printf("value of errno: %d\n", errno);
-    printf("ft_read - %zd:      %s\n", ft_read(fd_ft_1, ft_buffer, -5), ft_buffer);
+    printf("ft_read - %zd\n", ft_read(fd_ft_1, ft_buffer, -5));
     printf("value of errno: %d\n", errno);
-    printf("read - %zd:         %s\n", read(fd_1, buffer, bufferlen), buffer);
-    printf("ft_read - %zd:      %s\n", ft_read(fd_ft_1, ft_buffer, bufferlen), ft_buffer);
+    printf("read - %zd\n", read(fd_1, buffer, bufferlen));
+    printf("ft_read - %zd\n", ft_read(fd_ft_1, ft_buffer, bufferlen));
     return(0);
 }
 
