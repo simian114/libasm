@@ -108,20 +108,5 @@ ft_list_remove_if:
 	loop_else:; cmp != 0
 		mov r15, [r15 + 8]
 		jmp remove_loop
-;
-;	while (prev)
-;	{
-;		curr = prev->next;
-;		if (curr== 0)
-;			return ;
-;		else if (cmp(curr->content, data_ref) == 0)
-;		{
-;			prev->next = curr->next;
-;			free_fct(curr->content);
-;			free(curr);
-;		}
-;		else
-;			prev = curr;
-;	}
 fin:
 	ret
