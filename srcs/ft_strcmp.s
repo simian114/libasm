@@ -44,9 +44,9 @@ strcmp_end_0:
 	ret
 
 strcmp_end_1:
-	mov rax, 1
+	mov rax, -1
 	ret
 
 strcmp_end_2:
-	mov rax, -1
+	mov rax, 1
 	ret
